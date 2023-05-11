@@ -1,0 +1,7 @@
+extraScrapeConfigs: |
+  - job_name: promexporter
+    metrics_path: /metrics
+    scrape_interval: 1s
+    static_configs:
+      - targets: [promexporter.default.svc.cluster.local:9113]
+
