@@ -5,7 +5,7 @@ SCGC_HOME="$(dirname "$DIR")"
 
 source "$SCGC_HOME/common.sh"
 
-kubectl create namespace monitoring
+kubectl apply -f "$DIR/monitoring-namespace.yaml"
 
 # Install grafana
 helm repo add bitnami https://charts.bitnami.com/bitnami

@@ -8,7 +8,7 @@ source "$SCGC_HOME/common.sh"
 #ensure_image "quay.io/prometheus/prometheus:v2.43.1"
 ensure_image "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.8.0"
 
-kubectl create namespace monitoring
+kubectl apply -f "$DIR/monitoring-namespace.yaml"
 
 # Install prometheus
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
