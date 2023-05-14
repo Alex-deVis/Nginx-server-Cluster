@@ -7,10 +7,13 @@ source "$SCGC_HOME/common.sh"
 
 kubectl apply -f "$DIR/monitoring-namespace.yaml"
 
+# Add datasource and dashboard
+kubectl create configmap nginx-dashboard-config --from-file="$DIR/nginx-dashboard.json" -n monitoring
+
 # Install grafana
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
-helm install grafana bitnami/grafana -n monitoring
+helm install grafana bitnami/grafana -n monitoring -f "$DIR/values.yaml"
 
 GRAFANA_POD=$(kubectl get pod -n monitoring | grep grafana | awk '{print $1}')
 kubectl wait --for=condition=Ready pod/$GRAFANA_POD -n monitoring --timeout=5m

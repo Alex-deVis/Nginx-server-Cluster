@@ -1,0 +1,15 @@
+dashboardsProvider:
+  enabled: true
+dashboardsConfigMaps:
+  - configMapName: nginx-dashboard-config
+    fileName: nginx-dashboard.json
+datasources:
+  secretDefinition:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-server
+      access: proxy
+      isDefault: true
+
