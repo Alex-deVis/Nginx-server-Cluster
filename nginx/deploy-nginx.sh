@@ -9,7 +9,12 @@ source "$SCGC_HOME/common.sh"
 
 kubectl apply -f "$DIR/nginx-html-config.yaml"
 kubectl apply -f "$DIR/nginx-metrics-config.yaml"
-kubectl apply -f "$DIR/nginx-deployment.yaml"
+if [[ "$1" == "secure" ]]; then
+	kubectl apply -f "$DIR/nginx-secure-config.yaml"
+	kubectl apply -f "$DIR/nginx-secure-deployment.yaml"
+else
+	kubectl apply -f "$DIR/nginx-deployment.yaml"
+fi
 kubectl apply -f "$DIR/nginx-service.yaml"
 
 kubectl wait --for=condition=Ready pod -l app=nginx --timeout=5m

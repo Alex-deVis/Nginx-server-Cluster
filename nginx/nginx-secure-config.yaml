@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-secure-config
+data:
+  default.conf: |
+    limit_req_zone $binary_remote_addr zone=one:10m rate=30r/m;
+    limit_conn_zone $binary_remote_addr zone=addr:10m;
+
+    server {
+      # Closing slow connections
+      client_body_timeout 3s;
+      client_header_timeout 3s;
+
+      listen      80;
+      server_name localhost;
+
+      location / {
+        # Limit the rate of requests
+        limit_req zone=one;
+        # Limit the number of connections
+        limit_conn addr 30;
+
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+      }
+    }
+

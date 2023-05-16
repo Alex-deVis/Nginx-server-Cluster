@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+          name: html-port
+        - containerPort: 8080
+          name: metrics-port
+        volumeMounts:
+        - name: nginx-html-vol
+          mountPath: "/usr/share/nginx/html/index.html"
+          subPath: "index.html"
+        - name: nginx-metrics-vol
+          mountPath: "/etc/nginx/conf.d/metrics.conf"
+          subPath: "metrics.conf"
+        - name: nginx-conf-vol
+          mountPath: "/etc/nginx/conf.d/default.conf"
+          subPath: "default.conf"
+      volumes:
+      - name: nginx-html-vol
+        configMap:
+          name: nginx-html-config
+          items:
+          - key: "index.html"
+            path: "index.html"
+      - name: nginx-metrics-vol
+        configMap:
+          name: nginx-metrics-config
+          items:
+          - key: "metrics.conf"
+            path: "metrics.conf"
+      - name: nginx-conf-vol
+        configMap:
+          name: nginx-secure-config
+          items:
+          - key: "default.conf"
+            path: "default.conf"
+

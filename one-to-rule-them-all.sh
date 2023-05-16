@@ -13,6 +13,12 @@ if [[ "$1" == "clean" ]]; then
 	bash "$PROMEXPORTER_PATH/destroy-promexporter.sh"
 	bash "$NGINX_PATH/destroy-nginx.sh"
 	bash "$SCGC_HOME/destroy-cluster.sh"
+elif [[ "$1" == "secure" ]]; then
+	bash "$SCGC_HOME/deploy-cluster.sh"
+	bash "$NGINX_PATH/deploy-nginx.sh" "secure"
+	bash "$PROMEXPORTER_PATH/deploy-promexporter.sh"
+	bash "$PROMETHEUS_PATH/deploy-prometheus.sh"
+	bash "$GRAFANA_PATH/deploy-grafana.sh"
 else
 	bash "$SCGC_HOME/deploy-cluster.sh"
 	bash "$NGINX_PATH/deploy-nginx.sh"
