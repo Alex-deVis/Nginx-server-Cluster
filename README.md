@@ -1,6 +1,6 @@
-# Deploy bombardier-cluster
+# Nginx-server Cluster
 
-*bombardier-cluster* is a cluster containing `nginx`, `Prometheus`, and `Grafana` services to serve simple html documents and statistics of the `nginx` service.
+*Nginx-server Cluster* is a cluster containing `nginx`, `Prometheus`, and `Grafana` services to serve simple html documents and statistics of the `nginx` service.
 
 ## Convenience Deployment
 
@@ -83,4 +83,3 @@ Reading: 0 Writing: 1 Waiting: 1
 
 Use `run_slowhttptest.sh <output>` from `slowhttptest/` to run the attack with the same name.
 It will store the results as `stats_nginx.csv` and `stats_nginx.html` if no value for `output` is provided.
-
